@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+  h1=title 
+
+  form(method="POST")
+    div.login-form  
+      div.login-input
+        label(for="email") Email: 
+        input#email(type="email", placeholder="Enter your email", name="email" required)
+      div.login-input 
+        label(for="password") Password: 
+        input#password(type="password", placeholder="Password", name="password", required)
