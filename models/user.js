@@ -10,9 +10,10 @@ const UserSchema = new Schema({
   member_status: {
     type: String,
     required: true,
-    enum: ["admin", "full", "normal"],
+    enum: ["vip", "normal"],
     default: "normal",
   },
+  admin: { type: Boolean, default: false },
 });
 
 // Virtual for user full name
@@ -28,3 +29,5 @@ UserSchema.virtual("full_name").get(function () {
 UserSchema.virtual("url").get(function () {
   return `/profile/user/${this._id}`;
 });
+
+module.exports = mongoose.model("User", UserSchema);
