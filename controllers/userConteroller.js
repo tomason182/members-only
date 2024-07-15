@@ -19,5 +19,5 @@ exports.user_login = asyncHandler(async (req, res, next) => {
 // @route   GET /users/profile
 // @access  Private
 exports.user_profile = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: User profile");
+  res.send(`NOT IMPLEMENTED: User ${req.params.id} profile`);
 });
