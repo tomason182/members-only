@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  border-bottom: 1px solid #808080;
+}
+
+.register li {
+  display: inline-block;
+  padding: 0 0.75rem;
+}
