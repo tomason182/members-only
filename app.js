@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const main = require("./config/db");
 
 // Add routes
+const indexRoute = require("./routes/index");
 const userRoutes = require("./routes/users");
 const messageRoutes = require("./routes/messages");
 
@@ -23,8 +24,12 @@ app.set("view engine", "pug");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Serve static files
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/", indexRoute);
 app.use("/users", userRoutes);
-app.use("/message", messageRoutes);
+app.use("/messages", messageRoutes);
 
 // Error handler
 app.use(errorHandler);

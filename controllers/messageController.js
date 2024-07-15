@@ -5,7 +5,9 @@ const asyncHandler = require("express-async-handler");
 // @route   GET /messages
 // @access  Public
 exports.message_display_all = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Display all messages");
+  res.render("index", {
+    title: "List of all messages",
+  });
 });
 
 /// CREATE A NEW MESSAGE
