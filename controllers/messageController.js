@@ -38,7 +38,7 @@ exports.message_display_one = asyncHandler(async (req, res, next) => {
 // @desc    Edit a message
 // @route   PUT /messages/:id
 // @access  Private
-exports.message_edit_post = asyncHandler(async (req, res, next) => {
+exports.message_edit = asyncHandler(async (req, res, next) => {
   res.send(`NOT IMPLEMENTED: Edit message ${req.params.id}`);
 });
 
