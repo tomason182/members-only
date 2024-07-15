@@ -18,7 +18,7 @@ router.post("/create", messageController.message_create_post);
 // Request for a specific message
 router.get("/:id", messageController.message_display_one);
 
-// REquest for edit a message
+// Request for edit a message
 router.put("/:id", messageController.message_edit);
 
 // Request for delete a message
