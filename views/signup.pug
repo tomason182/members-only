@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+  h1 Sign up 
+
+  form(method="post" action="/signup")
+    div.login-form 
+      div.login-input  
+        label(for="first-name") First Name: 
+        input#first-name(type="text", name="first-name", placeholder="First name", required)
+      div.login-input 
+        label(for="last-name") Last Name: 
+        input#last-name(type="text", name="last-name", placeholder="Last name", required)
+      div.login-input 
+        label(for="username") Email: 
+        input#username(type="email", name="email", placeholder="Email", required)
+      div.login-input 
+        label(for="password") Password: 
+        input#password(type="password", name="password", required) 
+      button.btn-submit(type="submit") Sign Up
+
