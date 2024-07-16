@@ -115,7 +115,7 @@ exports.user_login_post = [
     passport.authenticate("local", {
       successRedirect: "/",
       failureRedirect: "/login",
-    });
+    })(req, res, next);
   }),
 ];
 
