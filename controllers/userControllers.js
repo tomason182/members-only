@@ -23,9 +23,7 @@ exports.user_registration_post = asyncHandler(async (req, res, next) => {
 // @route   GET  /users/login
 // @access  Public
 exports.user_login_get = asyncHandler(async (req, res, next) => {
-  res.render("login_form", {
-    title: "Please log in",
-  });
+  res.render("login_form");
 });
 
 // @desc    Authenticate a User

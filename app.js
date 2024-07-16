@@ -26,7 +26,8 @@ app.set("view engine", "pug");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Setting up session
+/// SET UP SESSIONS COOKIES ///
+// Set up create-mongo session storage
 const sessionStore = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,
   collectionName: "sessions",
@@ -36,6 +37,7 @@ const sessionStore = MongoStore.create({
   },
 });
 
+// Set up express-session
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
