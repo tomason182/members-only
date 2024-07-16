@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const passport = require("passport");
 const errorHandler = require("./middleware/errorMiddleware");
 const path = require("node:path");
 const port = process.env.PORT || 3000;
@@ -53,6 +54,9 @@ app.use(
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
+
+// Import passport config
+require("./config/passport");
 
 app.use("/", indexRoute);
 app.use("/users", userRoutes);

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 // Require controllers module
 const user_controller = require("../controllers/userControllers");
@@ -16,7 +17,14 @@ router.post("/register", user_controller.user_registration_post);
 router.get("/login", user_controller.user_login_get);
 
 // POST request for logIng a User
-router.post("/login", user_controller.user_login_post);
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/users/login",
+  }),
+  user_controller.user_login_post
+);
 
 // GET request for display User Profile.
 router.get("/profile/:id", user_controller.user_profile);
