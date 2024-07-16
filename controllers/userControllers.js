@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const crypto = require("node:crypto");
-const { body, validationResult } = required("express-validator");
+const { body, validationResult } = require("express-validator");
 
 /// USER REGISTRATION CONTROLLER ///
 
@@ -30,13 +30,7 @@ exports.user_registration_post = [
     .withMessage("Last name must be specified.")
     .isAlphanumeric()
     .withMessage("Last name has non-alphanumeric characters"),
-  body("username")
-    .trim()
-    .isLength({ min: 3 })
-    .escape()
-    .withMessage("username must be specified")
-    .isEmail()
-    .withMessage("Username is not a valid email"),
+  body("username").isEmail().withMessage("Username is not a valid email"),
   body("password")
     .trim()
     .isLength({ min: 5 })
@@ -46,24 +40,49 @@ exports.user_registration_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
 
+    if (!errors.isEmpty()) {
+      return res.render("signup", {
+        user: req.body,
+        errors: errors.array(),
+      });
+    }
+
+    const userExist = await User.findOne({ username: req.body.username });
+    if (userExist) {
+      return res.render("signup", {
+        user: req.body,
+        errors: [{ msg: "User already exist" }],
+      });
+    }
+
     const salt = crypto.randomBytes(32).toString("hex");
-    const user = new User({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      username: req.body.username,
-      password: crypto.pbkdf2(
-        req.body.password,
-        salt,
-        100000,
-        64,
-        "sha512",
-        function (err, hashedPassword) {
-          if (err) {
-            return next(err);
-          }
+    crypto.pbkdf2(
+      req.body.password,
+      salt,
+      100000,
+      64,
+      "sha512",
+      async (err, hashedPassword) => {
+        if (err) {
+          return next(err);
         }
-      ),
-    });
+
+        const user = new User({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          username: req.body.username,
+          hashed_password: hashedPassword.toString("hex"),
+          salt: salt,
+        });
+
+        try {
+          await user.save();
+          res.redirect("/");
+        } catch (err) {
+          return next(err);
+        }
+      }
+    );
   }),
 ];
 

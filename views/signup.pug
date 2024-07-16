@@ -3,7 +3,7 @@ extends layout
 block content 
   h1 Sign up 
 
-  form(method="post" action="/signup")
+  form(method="POST" action="/register")
     div.login-form 
       div.login-input  
         label(for="first_name") First Name: 
@@ -13,9 +13,13 @@ block content
         input#last_name(type="text", name="last_name", placeholder="Last name", required)
       div.login-input 
         label(for="username") Email: 
-        input#username(type="email", name="email", placeholder="Email", required)
+        input#username(type="text", name="username", placeholder="Email", required)
       div.login-input 
         label(for="password") Password: 
         input#password(type="password", name="password", required) 
       button.btn-submit(type="submit") Sign Up
 
+  if errors 
+    ul 
+      for err in errors 
+        li=err.msg

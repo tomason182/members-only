@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   first_name: { type: String, required: true, maxLength: 50 },
   last_name: { type: String, required: true, maxLength: 50 },
   username: { type: String, required: true, maxLength: 50 }, // email address
-  hashed_password: { type: String, required: true, maxLength: 50 },
+  hashed_password: { type: String, required: true },
   salt: { type: String, required: true },
   member_status: {
     type: String,

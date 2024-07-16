@@ -26,7 +26,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 /// SET UP SESSIONS COOKIES ///
 // Set up create-mongo session storage
