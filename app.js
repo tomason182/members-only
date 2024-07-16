@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const errorHandler = require("./middleware/errorMiddleware");
 const path = require("node:path");
 const port = process.env.PORT || 3000;
@@ -23,6 +25,29 @@ app.set("view engine", "pug");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Setting up session
+const sessionStore = MongoStore.create({
+  mongoUrl: process.env.MONGO_URL,
+  collectionName: "sessions",
+  touchAfter: 8 * 3600, // 8 hs in sec.
+  crypto: {
+    secret: process.env.CONN_MONGO_SECRET,
+  },
+});
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true, // If true set cookie to everybody. False set cookie when log in?
+    store: sessionStore,
+    cookie: {
+      secure: false, // Should be true for https
+      maxAge: 24 * 3600 * 1000, // milliseconds
+    },
+  })
+);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
