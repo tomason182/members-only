@@ -1,13 +1,14 @@
 require("dotenv").config();
 
 const express = require("express");
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
-const passport = require("passport");
 const errorHandler = require("./middleware/errorMiddleware");
 const path = require("node:path");
 const port = process.env.PORT || 3000;
 const main = require("./config/db");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const passport = require("passport");
+const logger = require("morgan");
 
 // Add routes
 const indexRoute = require("./routes/index");
@@ -38,12 +39,11 @@ const sessionStore = MongoStore.create({
   },
 });
 
-// Set up express-session
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true, // If true set cookie to everybody. False set cookie when log in?
+    saveUninitialized: false, // If true set cookie to everybody. False set cookie when log in?
     store: sessionStore,
     cookie: {
       secure: false, // Should be true for https
@@ -52,14 +52,13 @@ app.use(
   })
 );
 
+app.use(passport.authenticate("session"));
+
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// Import passport config
-require("./config/passport");
-
 app.use("/", indexRoute);
-app.use("/users", userRoutes);
+app.use("/", userRoutes);
 app.use("/messages", messageRoutes);
 
 // Error handler
