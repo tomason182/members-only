@@ -1,7 +1,8 @@
+const passport = require("../config/passport");
+const { body, validationResult } = require("express-validator");
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const crypto = require("node:crypto");
-const { body, validationResult } = require("express-validator");
 
 /// USER REGISTRATION CONTROLLER ///
 
@@ -98,9 +99,25 @@ exports.user_login_get = asyncHandler(async (req, res, next) => {
 // @desc    Authenticate a User
 // @route   POST  /users/login
 // @access  Public
-exports.user_login_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: User login on POST");
-});
+exports.user_login_post = [
+  body("username").isEmail().withMessage("Username is not a valid email"),
+  body("password")
+    .isLength({ min: 5 })
+    .withMessage("password must be at lease 5 characters"),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("login_form", {
+        errors: errors.array(),
+      });
+    }
+
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login",
+    });
+  }),
+];
 
 /// USER LOG OUT ///
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
