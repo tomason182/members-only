@@ -6,9 +6,19 @@ const { body, validationResult } = require("express-validator");
 // @route   GET /messages
 // @access  Public
 exports.message_display_all = asyncHandler(async (req, res, next) => {
+  const messages = await Message.find({}).populate("user");
+  const formattedDate = function (date) {
+    const year = new Date(date).getFullYear();
+    const month = new Date(date).getMonth() + 1;
+    const day = new Date(date).getDate();
+    return `${year}-${month}-${day}`;
+  };
+
   res.render("index", {
     title: "List of all messages",
     user: req.user,
+    messages: messages,
+    formattedDate: formattedDate,
   });
 });
 

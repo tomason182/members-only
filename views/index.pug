@@ -1,6 +1,16 @@
-extends layout 
+extends layout
 
 block content
   a(href="/messages/create")
     button(type=button) Add new Message
   h1=title
+
+  ul
+    for msg in messages 
+      li
+        div.msg-container
+          h4=msg.title
+          h4=msg.user.first_name
+          p=msg.message 
+          span=formattedDate(msg.updatedAt)
+    
