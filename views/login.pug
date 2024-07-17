@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+  h1 Log In 
+
+  form(method="post" action="/login/password")
+    div.login-form  
+      div.login-input
+        label(for="username") Email: 
+        input#username(type="text", placeholder="Enter your email", name="username" required)
+      div.login-input 
+        label(for="current-password") Password: 
+        input#current-password(type="password", placeholder="Password", name="password", required)
+      button.btn-submit(type="submit") Sign In

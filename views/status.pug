@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+  h1 Get VIP Status and join the club 
+
+  form.login-form(method="POST" action="/status")
+    div.login-input
+      label(for="code") VIP ACCESS CODE:
+      input#code(type="text", name="code", placeholder="Enter Code", required)
+    
+    button.btn-submit(type="submit") Submit

@@ -1,8 +1,9 @@
 exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
-    console.log("You are authorized");
+    next();
   } else {
     console.log("You are not authoriezed");
+    res.redirect("/");
   }
 };
 

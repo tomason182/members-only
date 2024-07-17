@@ -134,3 +134,22 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 exports.user_profile = asyncHandler(async (req, res, next) => {
   res.send(`NOT IMPLEMENTED: User ${req.params.id} profile`);
 });
+
+/// STATUS ///
+
+// @desc  get Status page
+// @route GET /status
+// @access Private
+
+exports.status_page_get = asyncHandler(async (req, res, next) => {
+  res.render("status", {
+    user: req.user,
+  });
+});
+
+// @desc Update User status
+// @route PUT /status
+// @access Private
+exports.user_status_post = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: You update the status successfully");
+});

@@ -1,4 +1,5 @@
 const express = require("express");
+const { isAuth, isAdmin } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 // Require controllers module
@@ -23,5 +24,10 @@ router.post("/logout", user_controller.user_logout_post);
 
 // GET request for display User Profile.
 router.get("/profile/:id", user_controller.user_profile);
+
+// GET status page
+router.get("/status", isAuth, user_controller.status_page_get);
+
+router.post("/status", user_controller.user_status_post);
 
 module.exports = router;
