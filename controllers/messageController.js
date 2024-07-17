@@ -17,7 +17,10 @@ exports.message_display_all = asyncHandler(async (req, res, next) => {
 // @route   GET /messages/create
 // @access  Private
 exports.message_create_get = asyncHandler(async (req, res, next) => {
-  res.render("new_message");
+  console.log(req.user);
+  res.render("new_message", {
+    user: req.user,
+  });
 });
 
 // @desc    Create a message

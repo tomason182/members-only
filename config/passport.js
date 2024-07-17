@@ -35,20 +35,23 @@ passport.use(
 
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    return cb(null, {
-      id: user._id,
-      username: user.username,
-      first_name: user.first_name,
-      isAdmin: user.admin,
-      member_status: user.member_status,
-    });
+    return cb(null, user.id);
   });
 });
 
-passport.deserializeUser(function (user, cb) {
-  process.nextTick(function () {
-    return cb(null, user);
-  });
+passport.deserializeUser(async function (id, cb) {
+  console.log(id); // Is the full user object
+  try {
+    const user = await User.findById(id).select([
+      "first_name",
+      "last_name",
+      "username",
+      "member_status",
+    ]);
+    cb(null, user);
+  } catch (err) {
+    cb(err);
+  }
 });
 
 module.exports = passport;

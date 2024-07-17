@@ -183,9 +183,6 @@ exports.user_status_post = [
         returnOriginal: false,
       }
     );
-
-    console.log(user);
-
     res.render("index", {
       user: user,
     });

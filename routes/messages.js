@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { isAuth, isAdmin } = require("../middleware/authMiddleware");
 
 // Require controller module
 const messageController = require("../controllers/messageController");
@@ -10,7 +11,7 @@ const messageController = require("../controllers/messageController");
 router.get("/", messageController.message_display_all);
 
 // Request for create a new message on GET
-router.get("/create", messageController.message_create_get);
+router.get("/create", isAuth, messageController.message_create_get);
 
 // Request for create a new message on POST
 router.post("/create", messageController.message_create_post);
