@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+
+  h1 Enter a new Message 
+
+  form(method="POST", action="/new-message")
+    div.login-form  
+      div.login-input
+        label(for="title") Title:  
+        input#title(type="text", placeholder="Enter a title", name="title" required)
+      div.login-input 
+        label(for="message") Message: 
+        textarea#message(name=",message" row="20" col="50" placeholder="enter a message" required)
+      button.btn-submit(type="submit") Sign In

@@ -17,7 +17,7 @@ exports.message_display_all = asyncHandler(async (req, res, next) => {
 // @route   GET /messages/create
 // @access  Private
 exports.message_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Create a message on GET");
+  res.render("new_message");
 });
 
 // @desc    Create a message
