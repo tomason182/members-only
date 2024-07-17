@@ -2,10 +2,13 @@ h1 Members Only - Private Club
 div(class="register")
   if user
     ul 
-      li Welcome #{user.fullName}
+      li Welcome #{user.first_name}
       li
-        a(href="/status")
-          button(type="submit") GET VIP STATUS 
+        if user.member_status === "vip"
+          h5.vip-status **VIP**
+        else 
+          a(href="/status")
+            button(type="submit") GET VIP STATUS 
       li
         form(method="POST" action="/logout")
           button(type="submit") Log out

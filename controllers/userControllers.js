@@ -150,6 +150,44 @@ exports.status_page_get = asyncHandler(async (req, res, next) => {
 // @desc Update User status
 // @route PUT /status
 // @access Private
-exports.user_status_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: You update the status successfully");
-});
+exports.user_status_post = [
+  body("code")
+    .trim()
+    .escape()
+    .isAlphanumeric()
+    .withMessage("You need to enter a valid CODE"),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("status", {
+        user: req.user,
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    if (req.body.code !== "VIPCODE") {
+      res.render("status", {
+        user: req.user,
+        errors: [{ msg: "Invalid code" }],
+      });
+      return;
+    }
+    console.log(req.user.username);
+
+    const user = await User.findOneAndUpdate(
+      { username: req.user.username },
+      { member_status: "vip" },
+      {
+        returnOriginal: false,
+      }
+    );
+
+    console.log(user);
+
+    res.render("index", {
+      user: user,
+    });
+  }),
+];
