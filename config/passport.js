@@ -38,6 +38,9 @@ passport.serializeUser(function (user, cb) {
     return cb(null, {
       id: user._id,
       username: user.username,
+      fullName: user.full_name,
+      isAdmin: user.admin,
+      memberStatus: user.member_status,
     });
   });
 });

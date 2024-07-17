@@ -13,9 +13,10 @@ html(lang="en")
             div(class="register")
               if user
                 ul 
-                  li Welcome #{user.username} 
-                  li 
-                    a(href="/logout") Log out
+                  li Welcome #{user.fullName} 
+                  li
+                    form(method="POST" action="/logout")
+                      button(type="submit") Log out
               else 
                 ul 
                   li 
