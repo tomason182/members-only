@@ -7,4 +7,10 @@ exports.isAuth = (req, res, next) => {
   }
 };
 
-exports.isAdmin = (req, res, next) => {};
+exports.isAdmin = (req, res, next) => {
+  if (req.isAuthenticated() && req.user.admin) {
+    next();
+  } else {
+    res.status(401).json({ msg: "You do not have admin grants" });
+  }
+};

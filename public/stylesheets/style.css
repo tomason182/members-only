@@ -89,3 +89,11 @@ li {
   margin-right: 2rem;
   margin-bottom: 1rem;
 }
+
+.form_delete {
+  grid-column: 1;
+  grid-row: 3;
+  justify-self: flex-start;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}

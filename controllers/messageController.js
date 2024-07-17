@@ -50,7 +50,7 @@ exports.message_create_post = [
     .withMessage("Message should be minimum 3 and maximum 250 characters"),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body);
+
     if (!errors.isEmpty()) {
       return res.render("new_message", {
         errors: errors,
@@ -83,7 +83,7 @@ exports.message_display_one = asyncHandler(async (req, res, next) => {
 // @route   PUT /messages/:id
 // @access  Private
 exports.message_edit = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: Edit message ${req.params.id}`);
+  res.send("You delete the message");
 });
 
 /// DELETE A MESSAGE ///
@@ -92,5 +92,7 @@ exports.message_edit = asyncHandler(async (req, res, next) => {
 // @route   DELETE /messages/:id
 // @access  Private
 exports.message_delete = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: Delete the message ${req.params.id}`);
+  await Message.findOneAndDelete({ _id: req.body.form_delete });
+
+  res.redirect("/messages");
 });

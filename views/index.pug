@@ -16,4 +16,8 @@ block content
           p.text=msg.message 
           if user && user.member_status == "vip"
             span.date=formattedDate(msg.updatedAt)
+          if user && user.member_status == "vip"
+            form.form_delete(method="POST" action= `/messages/delete/${msg._id}`)
+              input#from_delete(type="hidden" name="form_delete" value=msg._id)
+              button.btn-submit(type="submit") Delete message
     

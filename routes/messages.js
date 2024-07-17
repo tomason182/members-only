@@ -23,6 +23,6 @@ router.get("/:id", messageController.message_display_one);
 router.put("/:id", messageController.message_edit);
 
 // Request for delete a message
-router.delete("/:id", messageController.message_delete);
+router.post("/delete/:id", isAdmin, messageController.message_delete);
 
 module.exports = router;

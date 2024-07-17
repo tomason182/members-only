@@ -40,13 +40,13 @@ passport.serializeUser(function (user, cb) {
 });
 
 passport.deserializeUser(async function (id, cb) {
-  console.log(id); // Is the full user object
   try {
     const user = await User.findById(id).select([
       "first_name",
       "last_name",
       "username",
       "member_status",
+      "admin",
     ]);
     cb(null, user);
   } catch (err) {
