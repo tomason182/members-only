@@ -7,6 +7,7 @@ const asyncHandler = require("express-async-handler");
 exports.message_display_all = asyncHandler(async (req, res, next) => {
   res.render("index", {
     title: "List of all messages",
+    user: req.user,
   });
 });
 
