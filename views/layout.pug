@@ -8,20 +8,6 @@ html(lang="en")
   body 
     div(class="main-container")
       div(class="header")
-        div(class="Title")
-          h1 Members Only - Private Club
-            div(class="register")
-              if user
-                ul 
-                  li Welcome #{user.fullName} 
-                  li
-                    form(method="POST" action="/logout")
-                      button(type="submit") Log out
-              else 
-                ul 
-                  li 
-                    a(href="/login") Log In
-                  li
-                    a(href="/register") Sign Up
+        include header
       div(class="content")
         block content

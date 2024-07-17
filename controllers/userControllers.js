@@ -43,7 +43,6 @@ exports.user_registration_post = [
 
     if (!errors.isEmpty()) {
       return res.render("signup", {
-        user: req.body,
         errors: errors.array(),
       });
     }
@@ -51,7 +50,6 @@ exports.user_registration_post = [
     const userExist = await User.findOne({ username: req.body.username });
     if (userExist) {
       return res.render("signup", {
-        user: req.body,
         errors: [{ msg: "User already exist" }],
       });
     }
@@ -78,7 +76,7 @@ exports.user_registration_post = [
 
         try {
           await user.save();
-          res.redirect("/");
+          res.redirect("/login");
         } catch (err) {
           return next(err);
         }

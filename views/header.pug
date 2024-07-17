@@ -1,9 +1,14 @@
-div(class="Title")
-  h1 Members Only - Private Club
+h1 Members Only - Private Club
 div(class="register")
-  ul 
-    li 
-      a(href="/login") Log In
-    li
-      a(href="/register") Sign Up
-
+  if user
+    ul 
+      li Welcome #{user.fullName} 
+      li
+        form(method="POST" action="/logout")
+          button(type="submit") Log out
+  else 
+    ul 
+      li 
+        a(href="/login") Log In
+      li
+        a(href="/register") Sign Up
