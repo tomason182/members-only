@@ -1,16 +1,19 @@
 extends layout
 
 block content
-  a(href="/messages/create")
-    button(type=button) Add new Message
+  if user
+    a(href="/messages/create")
+      button(type=button) Add new Message
   h1=title
 
   ul
     for msg in messages 
       li
         div.msg-container
-          h4=msg.title
-          h4=msg.user.first_name
-          p=msg.message 
-          span=formattedDate(msg.updatedAt)
+          h4.title=msg.title
+          if user && user.member_status == "vip"
+            h4.user=msg.user.first_name
+          p.text=msg.message 
+          if user && user.member_status == "vip"
+            span.date=formattedDate(msg.updatedAt)
     

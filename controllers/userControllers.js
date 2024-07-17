@@ -176,15 +176,13 @@ exports.user_status_post = [
     }
     console.log(req.user.username);
 
-    const user = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { username: req.user.username },
       { member_status: "vip" },
       {
         returnOriginal: false,
       }
     );
-    res.render("index", {
-      user: user,
-    });
+    res.redirect("/messages");
   }),
 ];

@@ -14,7 +14,7 @@ router.get("/", messageController.message_display_all);
 router.get("/create", isAuth, messageController.message_create_get);
 
 // Request for create a new message on POST
-router.post("/create", messageController.message_create_post);
+router.post("/create", isAuth, messageController.message_create_post);
 
 // Request for a specific message
 router.get("/:id", messageController.message_display_one);

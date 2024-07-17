@@ -20,7 +20,7 @@ router.get("/login", user_controller.user_login_get);
 router.post("/login/password", user_controller.user_login_post);
 
 // POST request for log out
-router.post("/logout", user_controller.user_logout_post);
+router.post("/logout", isAuth, user_controller.user_logout_post);
 
 // GET request for display User Profile.
 router.get("/profile/:id", user_controller.user_profile);
@@ -28,6 +28,6 @@ router.get("/profile/:id", user_controller.user_profile);
 // GET status page
 router.get("/status", isAuth, user_controller.status_page_get);
 
-router.post("/status", user_controller.user_status_post);
+router.post("/status", isAuth, user_controller.user_status_post);
 
 module.exports = router;
